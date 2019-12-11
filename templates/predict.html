@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>predict</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{{url_for('static', filename='css/mdb.min.css')}}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{{url_for('static', filename='css/style.min.css')}}" rel="stylesheet">
+  <!-- 나눔 바른 고딕 웹 폰트 적용하기 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 100%;
+    }
+    @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331!important;
+            }
+        }
+    .hangul {
+        font-family: 'Nanum Barun Gothic' !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#" target="_blank">
+        <strong class="hangul">GNU</strong>
+      </a>
+
+      <a class="navbar-brand" href="/progress" target="_self">
+        <strong class="hangul">추이확인</strong>
+      </a>
+
+      <a class="navbar-brand" href="/insert" target="_self">
+        <strong class="hangul">데이터 삽입</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="https://github.com/ndb796/Vegita" class="nav-link border border-light rounded"
+              target="_blank">
+              <i class="fa fa-github mr-2"></i>GitHub
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!--Carousel Wrapper-->
+  <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+      <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+      <!--First slide-->
+      <div class="carousel-item active">
+        <div class="view">
+
+          <!--Video source-->
+          <video class="video-intro" autoplay loop>
+            <source src="https://mdbootstrap.com/img/video/city.mp4" type="video/mp4" >
+          </video>
+
+          <!-- Mask & flexbox options-->
+          <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+              <h1 class="mb-4">
+                <strong style="font-family: 'Nanum Barun Gothic'">아람관 식수 인원 예측 서비스</strong>
+              </h1>
+
+              <p>
+                <strong style="font-family: 'Nanum Barun Gothic'">빠르고 정확하게 식수 인원을 예측합니다.</strong>
+              </p>
+
+              <p class="mb-4 d-none d-md-block">
+                <strong>과거의 데이터들을 머신런닝을 이용하여 학습한 학습 모델을 바탕으로 요일, 메뉴 등 다양한 항목을 사용하여 식수 인원을 예측합니다.</strong>
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.Slides-->
+
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <main>
+    <div class="container">
+
+      <!--Section: Main info-->
+      <section class="mt-5 wow fadeIn">
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <img src="{{url_for('static', filename='img/graph.png')}}" class="img-fluid z-depth-1-half" alt="">
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <!-- Main heading -->
+            <h3 class="h3 mb-3" style="font-family: 'Nanum Barun Gothic'">식수 인원 예측 하기</h3>
+            <p style="font-family: 'Nanum Barun Gothic'">머신 러닝 선형 회귀(Linear Regression) 모델을 확장하여 요일과 메뉴에 따른 식수 인원을 예측하고 학습 결과를 확인했습니다.
+              <strong style="font-family: 'Nanum Barun Gothic'">미래</strong>의 식수 인원을 효과적으로 예측할 수 있습니다. </p>
+            <p></p>
+            <!-- Main heading -->
+
+            <hr>
+
+            <p style="font-family: 'Nanum Barun Gothic'">
+              <strong>3</strong>년 이상의 데이터를 활용하여
+              <strong>3.0%</strong> 미만의 데이터 오차율을 보이는
+              <strong>식수 인원 예측 모델</strong>을 개발했습니다.
+            </p>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Main info-->
+
+      <hr class="my-5">
+
+      <!--Section: Main features & Quick Start-->
+      <section>
+
+        <h3 class="h3 text-center mb-5" style="font-family: 'Nanum Barun Gothic'">식수 인원 예측하기</h3>
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12 px-4">
+
+            <form action="/predict" method="post">
+              <!-- Default form group -->
+
+                  <!-- Default input -->
+                  <div class="form-group">
+                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">밥</label>
+                      :  
+                      <select name="rice">
+                          <option value="selector">-선택-</option>
+                          <option value=1>마파두부덮밥</option>
+                          <option value=2>카레라이스</option>
+                          <option value=3>돈육덮밥</option>
+                  			  <option value=4>자장밥</option>
+                  			  <option value=5>밥</option>
+                  			  <option value=6>마요덮밥</option>
+                  			  <option value=7>비빔밥</option>
+                          <option value=8>김치볶음밥</option>
+                          <option value=9>볶음밥</option>
+                          <option value=10>컵밥</option>
+                      </select>
+                  </div>
+                  <!-- Default input -->
+                  <div class="form-group">
+                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">국</label>
+                      :  
+                      <select name="soup">
+                          <option value="selector">-선택-</option>
+                          <option value=1>사골떡국</option>
+                          <option value=2>떡국</option>
+                          <option value=3>고추장수제비국</option>
+                          <option value=4>수제비국</option>
+                          <option value=5>김치수제비국</option>
+                          <option value=6>우거지해장국</option>
+                          <option value=7>짜글이찌개</option>
+                          <option value=8>뚝배기짜글이찌개</option>
+                          <option value=9>건새우아욱국</option>
+                          <option value=10>아욱국</option>
+                          <option value=11>알탕</option>
+                          <option value=12>건새우뭇국</option>
+                          <option value=13>고추장찌개</option>
+                          <option value=14>시금치국</option>
+                          <option value=15>근대국</option>
+                          <option value=16>배추국</option>
+                          <option value=17>매운버섯국</option>
+                          <option value=18>단배추국</option>
+                          <option value=19>버섯쇠고기국</option>
+                          <option value=20>경상도쇠고기국</option>
+                          <option value=21>쇠고기맑은국</option>
+                          <option value=22>쇠고기국</option>
+                          <option value=23>경상도고기국</option>
+                          <option value=24>짬뽕국</option>
+                          <option value=25>풋고추된장찌개</option>
+                          <option value=26>된장찌개</option>
+                          <option value=27>뼈없는감자탕</option>
+                          <option value=28>감자탕</option>
+                          <option value=29>북어국</option>
+                          <option value=30>황태국</option>
+                          <option value=31>어묵국</option>
+                          <option value=32>들깨시락국</option>
+                          <option value=33>시락국</option>
+                          <option value=34>콩비지찌개</option>
+                          <option value=35>팽이유부장국</option>
+                          <option value=36>우동장국</option>
+                          <option value=37>팽이버섯장국</option>
+                          <option value=38>감자맑은국</option>
+                          <option value=39>김치콩나물국</option>
+                          <option value=40>김치국</option>
+                          <option value=41>두부김치국</option>
+                          <option value=42>우동국</option>
+                          <option value=43>콩나물맑은국</option>
+                          <option value=44>콩나물국</option>
+                          <option value=45>계란팟국</option>
+                          <option value=46>참치김치찌개</option>
+                          <option value=47>돈육햄김치찌개</option>
+                          <option value=48>국밥</option>
+                          <option value=49>탕국</option>
+                          <option value=50>부대찌개</option>
+                      </select>
+                  </div>
+                  <!-- Default input -->
+                  <div class="form-group">
+                      <label style="font-family: 'Nanum Barun Gothic'" for="formGroupExampleInput">메인 메뉴</label>
+                      :  
+                      <select name="main_menu">
+                          <option value="selector">-선택-</option>
+                          <option value=1>돈육김치볶음</option>
+                          <option value=2>돼지고기김치볶음</option>
+                          <option value=3>돈육두루치기</option>
+                  			  <option value=4>돼지불고기</option>
+                  			  <option value=5>돼지고기고추장볶음</option>
+                  			  <option value=6>파채돈육불고기</option>
+                          <option value=7>해물볶음우동</option>
+                          <option value=8>메밀비빔국수</option>
+                          <option value=9>새송이장조림</option>
+                          <option value=10>미트볼조림</option>
+                          <option value=11>칠리미트볼조림</option>
+                          <option value=12>미트볼감자조림</option>
+                          <option value=13>멸치견과루볶음</option>
+                          <option value=14>돈육폭찹</option>
+                          <option value=15>크림스파게티</option>
+                          <option value=16>토마토스파게티</option>
+                          <option value=17>오이스터파스타</option>
+                          <option value=18>오코노미파스타</option>
+                          <option value=19>쫄면야채무침</option>
+                          <option value=20>동그랑땡전</option>
+                          <option value=21>동그랑땡</option>
+                          <option value=22>해물동그랑땡전</option>
+                          <option value=23>제육뚝배기</option>
+                          <option value=24>제육불고기뚝배기</option>
+                          <option value=25>뚝배기제육불고기</option>
+                          <option value=26>뚝배기불고기</option>
+                          <option value=27>흑태땅콩조림</option>
+                          <option value=28>함박스테이크</option>
+                          <option value=29>햄버거스테이크</option>
+                          <option value=30>푸실칠리볶음</option>
+                          <option value=31>계란찜</option>
+                          <option value=32>불고기팟타이</option>
+                          <option value=33>감자조림</option>
+                          <option value=34>계란장조림</option>
+                          <option value=35>건파래볶음</option>
+                          <option value=36>진미채무침</option>
+                          <option value=37>돈까스</option>
+                          <option value=38>맛탕</option>
+                          <option value=39>경단</option>
+                          <option value=40>만두튀김</option>
+                          <option value=41>오이무침</option>
+                          <option value=42>무생채</option>
+                          <option value=43>두부구이</option>
+                          <option value=44>샐러드</option>
+                          <option value=45>완자전</option>
+                          <option value=46>어묵조림</option>
+                          <option value=47>연근조림</option>
+                          <option value=48>소세지</option>
+                          <option value=49>오징어젓갈무침</option>
+                          <option value=50>닭갈비</option>
+                      </select>
+                  </div>
+              <!-- Default form group -->
+              <button style="font-family: 'Nanum Barun Gothic' !important;" type="submit" class="btn btn-primary btn-md pull-left">예측하기</button>
+            </form>
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-6 col-md-12">
+
+            <p class="h5 text-center mb-4" style="font-family: 'Nanum Barun Gothic'">예측 결과</p>
+            {% if num %}
+              <h5 class="text-center mt-3">오늘은 {{ week }}요일 입니다.</h5>
+              <h5>&nbsp;</h5>
+              <h5 class="text-center mt-3">예측된 식수인원은 {{ num }}명 입니다.</h5>
+              
+            {% endif %}
+          </div>
+          <!--/Grid column-->
+
+        </div>
+        <!--/Grid row-->
+
+      </section>
+      <!--Section: Main features & Quick Start-->
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <hr class="my-4">
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2019 Copyright:짬타이거 
+    </div>
+    <!--/.Copyright-->
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.3.1.min.js')}}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/mdb.min.js')}}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
+</body>
+
+</html>
